@@ -14,15 +14,16 @@ To use a different LLM provider, follow these steps:
    - Azure OpenAI: Requires AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT
    - AWS Bedrock: Requires AWS credentials and configuration
    - Google Vertex AI: Requires GOOGLE_APPLICATION_CREDENTIALS setup
+   - LiteLLM: Unified interface to 100+ providers; install langchain-litellm
 3. Follow the setup instructions within each section
 """
 
-"""Default Models"""
-from dotenv import load_dotenv
-load_dotenv(dotenv_path="../../.env", override=True)
-from langchain.chat_models import init_chat_model
+# """Default Models"""
+# from dotenv import load_dotenv
+# load_dotenv(dotenv_path="../../.env", override=True)
+# from langchain.chat_models import init_chat_model
 
-model = init_chat_model("openai:gpt-4.1-mini")
+# model = init_chat_model("openai:gpt-4.1-mini")
 
 # Use Anthropic instead of OpenAI
 # model = init_chat_model("anthropic:claude-haiku-4-5")
@@ -79,7 +80,7 @@ model = init_chat_model("openai:gpt-4.1-mini")
 
 
 """Google Vertex AI version"""
-# Make sure you have your vertex ai credentials setup and your GOOGLE_APPLICATION_CREDENTIALS are pointing to the JSON file. 
+# Make sure you have your vertex ai credentials setup and your GOOGLE_APPLICATION_CREDENTIALS are pointing to the JSON file.
 
 # import os
 # from pathlib import Path
@@ -99,3 +100,25 @@ model = init_chat_model("openai:gpt-4.1-mini")
 
 # # Create model
 # model = init_chat_model("google_vertexai:gemini-2.5-flash")
+
+
+"""LiteLLM Proxy Version"""
+# The LiteLLM proxy is OpenAI-compatible, so we use ChatOpenAI pointed at the proxy URL.
+# No extra packages required beyond what's already installed.
+#
+# Set these in your .env:
+#   LITELLM_PROXY_URL  — URL of the running LiteLLM proxy, e.g. http://instructor-host:4000
+#   LITELLM_API_KEY    — API key configured on the proxy (ask your instructor)
+#   LITELLM_MODEL      — model name as configured in the proxy, e.g. gpt-4.1-mini
+
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+import os
+
+load_dotenv(dotenv_path="../../.env", override=True)
+
+model = ChatOpenAI(
+    model=os.getenv("LITELLM_MODEL", "gpt-4.1-mini"),
+    base_url=os.getenv("LITELLM_PROXY_URL"),
+    api_key=os.getenv("LITELLM_API_KEY", "dummy"),
+)

@@ -80,17 +80,28 @@ For complex, multi-step tasks that require planning, filesystem access, and dele
 
 ### Clone the LangGraph 101 repo
 ```
-git clone https://github.com/langchain-ai/langgraph-101.git
+# git clone https://github.com/langchain-ai/langgraph-101.git
+git clone https://github.com/conradcorbett-crypto/langgraph-101.git
 ```
 
 
-### Create an environment 
+### Create a LangSmith Account
+
+LangSmith provides tracing and observability for your LLM calls — highly recommended for debugging during the lab.
+
+1. Sign up for a free account at [smith.langchain.com](https://smith.langchain.com)
+2. Navigate to **Settings → API Keys** and create a new API key
+3. Copy the key — you'll add it to your `.env` in the next step
+
+### Create an environment
 Ensure you have a recent version of pip and python installed
 ```
 $ cd langgraph-101
 # Copy the .env.example file to .env
 cp .env.example .env
 ```
+Open `.env` and fill in your `LANGSMITH_API_KEY` (and any other keys provided by your instructor).
+
 If you run into issues with setting up the python environment or acquiring the necessary API keys due to any restrictions (ex. corporate policy), contact your LangChain representative and we'll find a work-around!
 
 ### Package Installation
@@ -105,6 +116,31 @@ uv sync
 # Activate the virtual environment
 source .venv/bin/activate
 ```
+
+### Running the Notebooks
+
+After completing the package installation above, you can run the notebooks in several ways:
+
+**Option 1: Jupyter Lab (recommended)**
+```bash
+# Make sure your virtual environment is activated
+source .venv/bin/activate
+
+# Launch Jupyter Lab
+jupyter lab
+```
+Navigate to `notebooks/101/` to start with the fundamentals. Jupyter Lab is included in the project dependencies via `uv sync`.
+
+**Option 2: VS Code**
+1. Open the repo folder in VS Code
+2. Open any `.ipynb` file from the `notebooks/` directory
+3. When prompted to select a kernel, choose **Python (langgraph-101)** or point it to `.venv/bin/python`
+4. Run cells with the play button or `Shift+Enter`
+
+**Option 3: Claude Code (in this session)**
+Claude Code can execute notebook cells directly if you have the IDE extension running.
+
+> **Tip:** All notebooks automatically add the project root to `sys.path`, so imports from `utils/` work without any extra setup.
 
 ### Running Agents Locally
 
