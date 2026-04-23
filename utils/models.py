@@ -19,11 +19,11 @@ To use a different LLM provider, follow these steps:
 """
 
 # """Default Models"""
-# from dotenv import load_dotenv
-# load_dotenv(dotenv_path="../../.env", override=True)
-# from langchain.chat_models import init_chat_model
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="../../.env", override=True)
+from langchain.chat_models import init_chat_model
 
-# model = init_chat_model("openai:gpt-4.1-mini")
+model = init_chat_model("openai:gpt-4.1-mini")
 
 # Use Anthropic instead of OpenAI
 # model = init_chat_model("anthropic:claude-haiku-4-5")
@@ -111,14 +111,14 @@ To use a different LLM provider, follow these steps:
 #   LITELLM_API_KEY    — API key configured on the proxy (ask your instructor)
 #   LITELLM_MODEL      — model name as configured in the proxy, e.g. gpt-4.1-mini
 
-from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
-import os
+# from dotenv import load_dotenv
+# from langchain_openai import ChatOpenAI
+# import os
 
-load_dotenv(dotenv_path="../../.env", override=True)
+# load_dotenv(dotenv_path="../../.env", override=True)
 
-model = ChatOpenAI(
-    model=os.getenv("LITELLM_MODEL", "gpt-4.1-mini"),
-    base_url=os.getenv("LITELLM_PROXY_URL"),
-    api_key=os.getenv("LITELLM_API_KEY", "dummy"),
-)
+# model = ChatOpenAI(
+#     model=os.getenv("LITELLM_MODEL", "gpt-4.1-mini"),
+#     base_url=os.getenv("LITELLM_PROXY_URL"),
+#     api_key=os.getenv("LITELLM_API_KEY", "dummy"),
+# )
